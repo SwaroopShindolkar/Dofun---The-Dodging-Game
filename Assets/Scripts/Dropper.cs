@@ -10,6 +10,7 @@ public class Dropper : MonoBehaviour
     {
         myMeshRenderer = GetComponent<MeshRenderer>();
         myRigidBody = GetComponent<Rigidbody>();
+
         myMeshRenderer.enabled = false;
         myRigidBody.useGravity = false;
 
@@ -21,6 +22,7 @@ public class Dropper : MonoBehaviour
         if (Time.time >= timer)
         {
             Debug.Log("Time Up!!");
+            myMeshRenderer.enabled = true;
             myRigidBody.useGravity = true;
         }
         

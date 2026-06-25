@@ -2,29 +2,52 @@ using UnityEngine;
 
 public class Dropper : MonoBehaviour
 {
-    [SerializeField] float timer = 2f;
-    
-    MeshRenderer myMeshRenderer;
-    Rigidbody myRigidBody;
-    void Start()
+    [SerializeField] private float timer = 2f;
+
+    private MeshRenderer myMeshRenderer;
+    private Rigidbody myRigidBody;
+    private float dropTime;
+    private bool hasDropped;
+
+    private void Start()
     {
         myMeshRenderer = GetComponent<MeshRenderer>();
         myRigidBody = GetComponent<Rigidbody>();
 
-        myMeshRenderer.enabled = false;
-        myRigidBody.useGravity = false;
+        if (myMeshRenderer != null)
+        {
+            myMeshRenderer.enabled = false;
+        }
 
+        if (myRigidBody != null)
+        {
+            myRigidBody.useGravity = false;
+        }
+
+        dropTime = Time.time + timer;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Time.time >= timer)
+        if (hasDropped)
         {
-            Debug.Log("Time Up!!");
-            myMeshRenderer.enabled = true;
-            myRigidBody.useGravity = true;
+            return;
         }
-        
+
+        if (Time.time >= dropTime)
+        {
+            hasDropped = true;
+            Debug.Log("Time Up!!");
+
+            if (myMeshRenderer != null)
+            {
+                myMeshRenderer.enabled = true;
+            }
+
+            if (myRigidBody != null)
+            {
+                myRigidBody.useGravity = true;
+            }
+        }
     }
 }

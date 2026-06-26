@@ -14,6 +14,7 @@ public class TriggerProjectile : MonoBehaviour
             projectile1.SetActive(true);
             projectile2.SetActive(true);
             projectile3.SetActive(true);
+            Destroy(gameObject);
         }
     }
 }

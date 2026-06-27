@@ -3,11 +3,18 @@ using UnityEngine;
 public class Dropper : MonoBehaviour
 {
     [SerializeField] private float timer = 2f;
+    [SerializeField] private float destroyDelay = 1.2f;
 
     private MeshRenderer myMeshRenderer;
     private Rigidbody myRigidBody;
+
     private float dropTime;
     private bool hasDropped;
+
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
 
     private void Start()
     {
@@ -24,6 +31,7 @@ public class Dropper : MonoBehaviour
             myRigidBody.useGravity = false;
         }
 
+        // Time when the object should start dropping
         dropTime = Time.time + timer;
     }
 
@@ -37,6 +45,7 @@ public class Dropper : MonoBehaviour
         if (Time.time >= dropTime)
         {
             hasDropped = true;
+
             Debug.Log("Time Up!!");
 
             if (myMeshRenderer != null)
@@ -48,6 +57,9 @@ public class Dropper : MonoBehaviour
             {
                 myRigidBody.useGravity = true;
             }
+
+            // Destroy the object after it has been falling for destroyDelay seconds
+            Destroy(gameObject, destroyDelay);
         }
     }
 }
